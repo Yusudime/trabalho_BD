@@ -91,3 +91,19 @@ INSERT from filmes values (51, "Mulher-Maravilha", "Ação", "Patty Jenkins", 20
         - ano_lancamento: 2017
         - classificacao_etaria: 12
         - estoque: 5*/
+--trigger
+CREATE TRIGGER atualiza_estoque AFTER INSERT ON locacoes
+FOR EACH ROW
+BEGIN
+    UPDATE filmes SET estoque = estoque - 1 WHERE id_filme = NEW.id_filme;
+END;
+/* 
+    12. Crie um trigger chamado atualiza_estoque que, ao inserir uma nova locação, decrementa o estoque do filme locado.*/
+CREATE TRIGGER atualiza_estoque AFTER DELETE ON locacoes
+FOR EACH ROW
+BEGIN
+    UPDATE filmes SET estoque = estoque + 1 WHERE id_filme = OLD.id_filme;
+END;
+/* 
+    13. Crie um trigger chamado atualiza_estoque que, ao remover uma locação, incrementa o estoque do filme devolvido.*/
+UPDATE  filmes SET estoque = 10 WHERE id_filme = 12;
