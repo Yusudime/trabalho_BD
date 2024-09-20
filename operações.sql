@@ -107,3 +107,33 @@ END;
 /* 
     13. Crie um trigger chamado atualiza_estoque que, ao remover uma locação, incrementa o estoque do filme devolvido.*/
 UPDATE  filmes SET estoque = 10 WHERE id_filme = 12;
+-- VIEW
+CREATE VIEW locacoes_atrasadas AS
+SELECT * FROM locacoes WHERE data_devolucao < CURDATE();
+/* 
+    14. Crie uma view chamada locacoes_atrasadas que retorna todas as locações que estão atrasadas.*/
+SELECT * FROM locacoes_atrasadas;
+/* 
+    15. Execute a view locacoes_atrasadas.*/
+DROP VIEW locacoes_atrasadas;
+/* 
+    16. Remova a view locacoes_atrasadas.*/
+    CREATE VIEW estoque_filmes AS
+SELECT titulo, estoque FROM filmes;
+/* 
+    17. Crie uma view chamada estoque_filmes que retorna o título e o estoque de todos os filmes.*/
+SELECT * FROM estoque_filmes;
+/* 
+    18. Execute a view estoque_filmes.*/
+-- view
+CREATE VIEW clientes_alocados AS
+SELECT clientes.nome, COUNT(locacoes.id_cliente) AS locacoes_ativas
+FROM clientes
+JOIN locacoes ON clientes.id_cliente = locacoes.id_cliente
+GROUP BY clientes.id_cliente;
+/* 
+    19. Crie uma view chamada clientes_alocados que retorna o nome de todos os clientes e a quantidade de locações ativas de cada um.*/
+SELECT * FROM clientes_alocados;
+/* 
+    20. Execute a view clientes_alocados.*/
+
